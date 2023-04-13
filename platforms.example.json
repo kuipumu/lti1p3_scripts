@@ -1,0 +1,6 @@
+{
+  "example":{
+    "client_id":"example_id",
+    "token_url":"https://example.url"
+  },
+}
