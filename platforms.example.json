@@ -1,6 +1,8 @@
 {
   "example":{
     "client_id":"example_id",
-    "token_url":"https://example.url"
-  },
+    "token_url":"https://example.url",
+    "public_key": "keys/id_rsa.pub",
+    "private_key": "keys/id_rsa"
+  }
 }

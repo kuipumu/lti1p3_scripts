@@ -1,4 +1,9 @@
-venv
-id_rsa
-id_rsa.pub
+# Python.
+venv/
+.venv/
+
+# Platform configuration.
 platforms.json
+keys/*
+!keys/.gitkeep
+!keys/README.rst

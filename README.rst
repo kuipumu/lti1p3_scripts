@@ -25,7 +25,10 @@ Setup
 
   make requirements
 
+- Create an platforms.json configuration file.
+- Add a configuration for a platform to platforms.json file. (Use platforms.example.json has an example).
+
 Scripts
 =======
 
-- token_request.py: Request LTI 1.3 Service Token. To use this script first make sure to add your id_rsa and id_rsa.pub keys on the project folder. Also create a platforms.json file with a JSON containing at least one object with the name of the playtform, and it's client_id and token_url, you can use the file platforms.example.json has a reference.
+- token_request.py: Request LTI 1.3 Service Token.
