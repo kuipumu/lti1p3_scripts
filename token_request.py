@@ -36,12 +36,13 @@ DEFAULT_SCOPES = [
 ]
 
 
-def get_jwt_payload(client_id: str, token_url: str) -> dict:
+def get_jwt_payload(client_id: str, token_url: str, expiration: int) -> dict:
     """Get JWT payload.
 
     Args:
         client_id: Platform client ID.
         token_url: Service token URL.
+        expiration: Expiration time in minutes.
 
     Returns:
         JWT payload dictionary.
@@ -51,7 +52,7 @@ def get_jwt_payload(client_id: str, token_url: str) -> dict:
         'sub': client_id,
         'aud': token_url,
         'iat': int(time.time()) - 5,
-        'exp': int(time.time()) + 60,
+        'exp': int(time.time()) + expiration,
         'jti': 'lti-service-token-' + str(uuid.uuid4()),
     }
 
@@ -98,7 +99,8 @@ def main():
     # Parse CLI arguments.
     parser = ArgumentParser(description='Request access token from LTI platform.')
     parser.add_argument('platform_name', type=str, help='Platform configuration name.')
-    parser.add_argument('--timeout', '-t', default=15, help='Service token request timeout.')
+    parser.add_argument('--timeout', '-t', type=int, default=15, help='Request timeout.')
+    parser.add_argument('--expiration', '-e', type=int, default=60, help='Token expiration.')
     args = parser.parse_args()
     # Get platform configurations.
     with open('platforms.json', 'r', encoding=ENCODING) as file:
@@ -115,7 +117,7 @@ def main():
     # Get JWK from PEM public key.
     jwk = JWK.from_pem(public_key.encode(ENCODING))
     # Set JWT payload.
-    jwt_payload = get_jwt_payload(platform_cfg['client_id'], token_url)
+    jwt_payload = get_jwt_payload(platform_cfg['client_id'], token_url, args.expiration)
     print('JWT Payload:', jwt_payload)
     # Get request payload.
     jwt_token = get_jwt_token(jwt_payload, private_key, jwk)
