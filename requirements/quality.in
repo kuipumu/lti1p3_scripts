@@ -1,0 +1,8 @@
+# Requirements for test runs
+
+-c constraints.txt
+
+isort
+pylint
+pycodestyle
+pydocstyle

@@ -1,0 +1,6 @@
+# Core requirements for using this project.
+
+-c constraints.txt
+
+PyJWT
+jwcrypto
